@@ -54,11 +54,9 @@ public class testBlueTooth extends Activity implements IMChattingHelper.OnMessag
 	public static BluetoothSocket btSocket;
 	public static AcceptThread serverThread;
 
-	//rong lian yun init
-	private String nickName = "18665889098";
-	private String contactID = "18665889098";
 
-	private String mobile = "15919939276";
+
+	private String mobile = "20170418";
 	String pass = "";
 	String appKey = "8aaf070858cd982e0158e21ff0000cee";
 	String token = "ca8bdec6e6ed3cc369b8122a1c19306d";
@@ -287,13 +285,18 @@ public class testBlueTooth extends Activity implements IMChattingHelper.OnMessag
 						BluetoothAdapter.EXTRA_DISCOVERABLE_DURATION, 300);
 				startActivity(discoverableIntent);
 			} else if (v == btnExit) {
-				try {
-					if (btSocket != null)
-						btSocket.close();
-				} catch (IOException e) {
-					e.printStackTrace();
-				}
-				testBlueTooth.this.finish();
+//				try {
+//					if (btSocket != null)
+//						btSocket.close();
+//				} catch (IOException e) {
+//					e.printStackTrace();
+//				}
+//				testBlueTooth.this.finish();
+				//test code begin
+				Intent intent = new Intent();
+				intent.setClass(testBlueTooth.this, RelayControl.class);
+				startActivity(intent);
+				//test code end
 			}
 		}
 	}
@@ -395,7 +398,7 @@ public class testBlueTooth extends Activity implements IMChattingHelper.OnMessag
 		ECMessage msg = ECMessage.createECMessage(ECMessage.Type.TXT);
 	// 设置消息接收者
 	//msg.setTo(mRecipients);
-		msg.setTo("18665889098"); // attenionthis number is not the login number! / modified by tiejiang
+		msg.setTo("81407102"); // attenionthis number is not the login number! / modified by tiejiang
 		ECTextMessageBody msgBody=null;
 		Boolean isBQMMMessage=false;
 		String emojiNames = null;

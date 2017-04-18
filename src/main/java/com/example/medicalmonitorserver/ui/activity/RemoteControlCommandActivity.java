@@ -1,7 +1,6 @@
 package com.example.medicalmonitorserver.ui.activity;
 
 import android.app.Activity;
-import android.content.pm.ActivityInfo;
 import android.os.Bundle;
 import android.text.TextUtils;
 import android.util.Log;
@@ -18,19 +17,22 @@ import com.yuntongxun.ecsdk.ECMessage;
 import com.yuntongxun.ecsdk.im.ECTextMessageBody;
 
 import java.util.List;
+
 /**
  * Created by Administrator on 2016/12/14.
  */
 
 public class RemoteControlCommandActivity extends Activity implements IMChattingHelper.OnMessageReportCallback{
+
     private Button mSendButton;
     private EditText mReceiveEditText, mSendEditText;
+    private final static String sendNO = "81407102";
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         requestWindowFeature(Window.FEATURE_NO_TITLE);
-        setRequestedOrientation(ActivityInfo.SCREEN_ORIENTATION_LANDSCAPE);
+//        setRequestedOrientation(ActivityInfo.SCREEN_ORIENTATION_LANDSCAPE);
         setContentView(R.layout.activity_remote_control_command);
 
         mSendButton = (Button)findViewById(R.id.btn_command_send);
@@ -91,7 +93,7 @@ public class RemoteControlCommandActivity extends Activity implements IMChatting
         ECMessage msg = ECMessage.createECMessage(ECMessage.Type.TXT);
         // 设置消息接收者
 //        msg.setTo(mRecipients);
-        msg.setTo("18665889098"); // attenion  this number is not the login number! / modified by tiejiang
+        msg.setTo(sendNO); // attenion  this number is not the login number! / modified by tiejiang
         ECTextMessageBody msgBody=null;
         Boolean isBQMMMessage=false;
         String emojiNames = null;

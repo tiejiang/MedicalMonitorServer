@@ -2,7 +2,7 @@ package com.example.medicalmonitorserver.ui.bluetooth;
 
 import android.app.Activity;
 import android.content.Context;
-import android.graphics.Color;
+import android.content.Intent;
 import android.os.Bundle;
 import android.os.Handler;
 import android.os.Message;
@@ -15,6 +15,7 @@ import android.widget.TextView;
 import android.widget.Toast;
 
 import com.example.medicalmonitorserver.R;
+import com.example.medicalmonitorserver.ui.activity.RemoteControlCommandActivity;
 
 import java.io.IOException;
 import java.io.InputStream;
@@ -24,30 +25,39 @@ import java.io.UnsupportedEncodingException;
 /**
  *
  * 启动荣联云 VoIP video的方法：
+ * 启动video：
  * CCPAppManager.callVoIPAction(MenuActivity.this, ECVoIPCallManager.CallType.VIDEO, nickName, contactID,false);
+ * 启动文本IM：
+ * handleSendTextMessage(String string);
+ *
+ * client 端收取数据格式为：
+ * eg： text="2.0,4.0,5.0,9.0,6.0,5.0,2.0,"
  *
  * **/
 
 public class RelayControl extends Activity{
 	public static boolean isRecording = false;// 线程控制标记
 	private Button releaseCtrl,btBack,distance_display;
-	private Button car_left, car_right, car_back;
+//	private Button car_left, car_right, car_back;
 	private OutputStream outStream = null;
 	private EditText _txtRead;
 	private ConnectedThread manageThread;
 	private Handler mHandler;
 	private String  encodeType ="GBK";
 	private Vibrator mVibrator;
-	long [] pattern = {100,400,100,400};   // 停止 开启 停止 开启
 
 	@Override
 	public void onCreate(Bundle savedInstanceState){
 		super.onCreate(savedInstanceState);
 		setContentView(R.layout.relaycontrol);
+
+        // test code begin
 		//接收线程启动
-		manageThread = new ConnectedThread();
-		mHandler = new MyHandler();
-		manageThread.Start();
+//		manageThread = new ConnectedThread();
+//		mHandler = new MyHandler();
+//		manageThread.Start();
+        // test code end
+
 		findMyView();
 		setMyViewListener();
 		setTitle("返回前需先关闭socket连接");
@@ -56,13 +66,18 @@ public class RelayControl extends Activity{
 		_txtRead.setFocusable(false);           //无焦点
 		mVibrator = (Vibrator) getSystemService(Context.VIBRATOR_SERVICE);
 
+		// test code begin
+		Intent mRemoteCtrIntent = new Intent();
+		mRemoteCtrIntent.setClass(RelayControl.this,RemoteControlCommandActivity.class);
+		startActivity(mRemoteCtrIntent);
+		// test code end
 
 	}
 
 	private void findMyView() {
-		car_left=(Button)findViewById(R.id.car_left);
-		car_right=(Button)findViewById(R.id.car_right);
-		car_back=(Button)findViewById(R.id.car_back);
+//		car_left=(Button)findViewById(car_left);
+//		car_right=(Button)findViewById(R.id.car_right);
+//		car_back=(Button)findViewById(R.id.car_back);
 		releaseCtrl=(Button)findViewById(R.id.button1);
 		btBack=(Button) findViewById(R.id.button2);
 		distance_display=(Button)findViewById(R.id.distance_display);
@@ -70,9 +85,9 @@ public class RelayControl extends Activity{
 	}
 
 	private void setMyViewListener() {
-		car_left.setOnClickListener(new ClickEvent());
-		car_right.setOnClickListener(new ClickEvent());
-		car_back.setOnClickListener(new ClickEvent());
+//		car_left.setOnClickListener(new ClickEvent());
+//		car_right.setOnClickListener(new ClickEvent());
+//		car_back.setOnClickListener(new ClickEvent());
 		releaseCtrl.setOnClickListener(new ClickEvent());
 		btBack.setOnClickListener(new ClickEvent());
 	}
@@ -106,16 +121,17 @@ public class RelayControl extends Activity{
 					//Toast.makeText(getApplicationContext(), "关闭连接失败", Toast.LENGTH_SHORT);
 					setTitle("关闭连接失败");
 				}
-			}else if (v == car_left) {
-				car_left.setBackgroundColor(Color.WHITE);
-				mVibrator.cancel();
-			}else if (v == car_right) {
-				car_right.setBackgroundColor(Color.WHITE);
-				mVibrator.cancel();
-			}else if (v == car_back) {
-				car_back.setBackgroundColor(Color.WHITE);
-				mVibrator.cancel();
 			}
+//			else if (v == car_left) {
+//				car_left.setBackgroundColor(Color.WHITE);
+//				mVibrator.cancel();
+//			}else if (v == car_right) {
+//				car_right.setBackgroundColor(Color.WHITE);
+//				mVibrator.cancel();
+//			}else if (v == car_back) {
+//				car_back.setBackgroundColor(Color.WHITE);
+//				mVibrator.cancel();
+//			}
 			else if (v == btBack) {// 返回
 				RelayControl.this.finish();
 			}
@@ -214,6 +230,7 @@ public class RelayControl extends Activity{
 			}
 		}
 	}
+
 	private class MyHandler extends Handler{
 		@Override
 		public void dispatchMessage(Message msg) {
@@ -229,6 +246,10 @@ public class RelayControl extends Activity{
 					//_txtRead.setText("");
 					String info=(String) msg.obj;
 					_txtRead.append(info);
+
+					//send message to client through yun-tong-xun
+					testBlueTooth.handleSendTextMessage("init data");
+
 					AnalyzeData(info);
 					break;
 

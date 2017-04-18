@@ -1,5 +1,5 @@
 <resources>
-<string name="app_name">safeBoxMonitoring</string>
+<string name="app_name">MedicalMonitor</string>
 <string name="cancel_pass">cancel</string>
 <string name="start_logo">start</string>
 <string name="password">password</string>
