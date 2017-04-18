@@ -2,7 +2,6 @@ package com.example.medicalmonitorserver.ui.bluetooth;
 
 import android.app.Activity;
 import android.content.Context;
-import android.content.Intent;
 import android.os.Bundle;
 import android.os.Handler;
 import android.os.Message;
@@ -15,7 +14,6 @@ import android.widget.TextView;
 import android.widget.Toast;
 
 import com.example.medicalmonitorserver.R;
-import com.example.medicalmonitorserver.ui.activity.RemoteControlCommandActivity;
 
 import java.io.IOException;
 import java.io.InputStream;
@@ -67,9 +65,9 @@ public class RelayControl extends Activity{
 		mVibrator = (Vibrator) getSystemService(Context.VIBRATOR_SERVICE);
 
 		// test code begin
-		Intent mRemoteCtrIntent = new Intent();
-		mRemoteCtrIntent.setClass(RelayControl.this,RemoteControlCommandActivity.class);
-		startActivity(mRemoteCtrIntent);
+//		Intent mRemoteCtrIntent = new Intent();
+//		mRemoteCtrIntent.setClass(RelayControl.this,RemoteControlCommandActivity.class);
+//		startActivity(mRemoteCtrIntent);
 		// test code end
 
 	}
