@@ -1,0 +1,96 @@
+<resources>
+<string name="app_name">safeBoxMonitoring</string>
+<string name="cancel_pass">cancel</string>
+<string name="start_logo">start</string>
+<string name="password">password</string>
+<string name="input_password">请输入密码</string>
+<string name="serial">串口数据</string>
+<string name="monitor">视频</string>
+<string name="remote_control">文本</string>
+<string name="close_or_back">关闭</string>
+<string name="audio">语音</string>
+<string name="error_configuration">Please configure your serial port first.</string>
+<string name="error_security">You do not have read/write permission to the serial port.</string>
+<string name="error_unknown">The serial port can not be opened for an unknown reason.</string>
+
+<string name="Console">Console</string>
+<string name="send_serial_content">发送</string>
+<string name="total_vol">总电压(V)：</string>
+<string name="elec">电流(A)：</string>
+<string name="s_o_c">SOC(%):</string>
+<string name="s_o_h">SOH(%):</string>
+<string name="pack_remain_capacity">剩余容量(mAH)：</string>
+<string name="pack_full_capacity">满充容量(mAH)：</string>
+<string name="temp1">温度1（℃）：</string>
+<string name="temp2">温度2（℃）：</string>
+<string name="temp3">温度3（℃）：</string>
+<string name="temp4">温度4（℃）：</string>
+<string name="mos_temp">MOS温度：</string>
+<string name="environment_temp">环境温度：</string>
+<string name="pack_cyc">循环次数：</string>
+<string name="remote_command">远程指令</string>
+<string name="cell_1">电池1:</string>
+<string name="cell_2">电池2:</string>
+<string name="cell_3">电池3:</string>
+<string name="cell_4">电池4:</string>
+<string name="cell_5">电池5:</string>
+<string name="cell_6">电池6:</string>
+<string name="cell_7">电池7:</string>
+<string name="cell_8">电池8:</string>
+<string name="cell_9">电池9:</string>
+<string name="cell_10">电池10:</string>
+<string name="cell_11">电池11:</string>
+<string name="cell_12">电池12:</string>
+<string name="cell_13">电池13:</string>
+<string name="max_voltage">最高电压(mV)：</string>
+<string name="min_voltage">最低电压(mV)：</string>
+<string name="discharging_elec">放电过流告警：</string>
+<string name="charging_elec">充电过流告警：</string>
+<string name="total_vol_under_normal">总压低压告警：</string>
+<string name="total_vol_over_normal">总压过压告警：</string>
+<string name="cell_vol_under_normal">单体低压告警：</string>
+<string name="cell_vol_over_normal">单体过压告警：</string>
+<string name="low_battery">低电量告警：</string>
+<string name="mos_high_tem">MOS高温告警：</string>
+<string name="environment_low_tem">环境低温告警：</string>
+<string name="environment_high_tem">环境高温告警：</string>
+<string name="discharging_low_tem">放电低温告警：</string>
+<string name="discharging_high_tem">放电高温告警：</string>
+<string name="charging_low_tem">充电低温告警：</string>
+<string name="charging_high_tem">充电高温告警：</string>
+
+
+
+<string name="ec_voip_call_connecting_server">正在连接服务器&#8230;</string>
+<string name="ec_voip_call_connect">正在呼叫对方，请稍后&#8230;</string>
+<string name="ec_voip_calling_wait">等待对方接听&#8230;</string>
+<string name="ec_voip_calling_finish">通话结束</string>
+<string name="ec_voip_call_back_success">回拨呼叫成功，请注意接听系统来电!</string>
+
+<string name="ec_voip_calling_refuse">对方拒绝您的呼叫请求</string>
+<string name="ec_voip_calling_notfound">对方不在线，请稍后重试</string>
+<string name="ec_voip_calling_timeout">呼叫超时，请稍后再拨</string>
+<string name="ec_voip_calling_no_answer">无人应答，请稍后再拨</string>
+<string name="ec_voip_calling_busy">对方正忙，请稍后再拨</string>
+<string name="ec_voip_call_error">媒体协商失败</string>
+<string name="ec_voip_call_fail_connection_failed_auth">第三方鉴权地址连接失败</string>
+<string name="ec_voip_call_fail_not_find_appid">第三方应用ID未找到</string>
+<string name="ec_voip_call_fail_not_online_only_call">第三方未上线应用仅限呼叫已配置测试号码</string>
+<string name="ec_voip_call_auth_failed">第三方鉴权失败，子账号余额不足</string>
+<string name="ec_meeting_not_exist">会议号已解散或不存在</string>
+<string name="ec_meeting_pass_error">会议号密码验证失败</string>
+<string name="ec_voip_call_fail_no_pay_account">第三方主账号余额不足</string>
+<string name="ec_voip_call_fail">呼叫失败，请稍后重试&#8230;</string>
+<string name="ec_voip_calling_accepting">正在接听...</string>
+<string name="ec_voip_invited_video_tip">邀请你进行视频聊天&#8230;</string>
+<string name="str_video_bottom_time" formatted="false">与%1$s视频通话中\t</string>
+<string name="str_tips_wait_invited">正在等待对方接受邀请&#8230;</string>
+<string name="vedio_switch">音视频切换</string>
+<string name="str_call_status" formatted="false">延迟时间%d（毫秒）丢包率:%d</string>
+<string name="str_video_call_stop">结束视频通话</string>
+<string name="str_video_call_begin">开始视频通话</string>
+<string name="str_video_btn_call_end">结束</string>
+
+<string name="ec_voip_unknown_user">未知联系人</string>
+
+</resources>
