@@ -285,17 +285,17 @@ public class testBlueTooth extends Activity implements IMChattingHelper.OnMessag
 						BluetoothAdapter.EXTRA_DISCOVERABLE_DURATION, 300);
 				startActivity(discoverableIntent);
 			} else if (v == btnExit) {
-//				try {
-//					if (btSocket != null)
-//						btSocket.close();
-//				} catch (IOException e) {
-//					e.printStackTrace();
-//				}
-//				testBlueTooth.this.finish();
+				try {
+					if (btSocket != null)
+						btSocket.close();
+				} catch (IOException e) {
+					e.printStackTrace();
+				}
+				testBlueTooth.this.finish();
 				//test code begin
-				Intent intent = new Intent();
-				intent.setClass(testBlueTooth.this, RelayControl.class);
-				startActivity(intent);
+//				Intent intent = new Intent();
+//				intent.setClass(testBlueTooth.this, RelayControl.class);
+//				startActivity(intent);
 				//test code end
 			}
 		}

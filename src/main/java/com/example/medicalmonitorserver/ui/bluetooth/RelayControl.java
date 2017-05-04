@@ -36,26 +36,25 @@ import java.io.UnsupportedEncodingException;
 public class RelayControl extends Activity{
 	public static boolean isRecording = false;// 线程控制标记
 	private Button releaseCtrl,btBack,distance_display;
-//	private Button car_left, car_right, car_back;
+	private Button car_left, car_right, car_back;
 	private OutputStream outStream = null;
 	private EditText _txtRead;
 	private ConnectedThread manageThread;
 	private Handler mHandler;
 	private String  encodeType ="GBK";
 	private Vibrator mVibrator;
+	private String nickName = "91407102";
+	private String contactID = "91407102";
+	private String readStr1 = "";
 
 	@Override
 	public void onCreate(Bundle savedInstanceState){
 		super.onCreate(savedInstanceState);
 		setContentView(R.layout.relaycontrol);
-
-        // test code begin
 		//接收线程启动
-//		manageThread = new ConnectedThread();
-//		mHandler = new MyHandler();
-//		manageThread.Start();
-        // test code end
-
+		manageThread = new ConnectedThread();
+		mHandler = new MyHandler();
+		manageThread.Start();
 		findMyView();
 		setMyViewListener();
 		setTitle("返回前需先关闭socket连接");
@@ -63,31 +62,16 @@ public class RelayControl extends Activity{
 		_txtRead.setCursorVisible(false);      //设置输入框中的光标不可见
 		_txtRead.setFocusable(false);           //无焦点
 		mVibrator = (Vibrator) getSystemService(Context.VIBRATOR_SERVICE);
-
-		// test code begin
-//		Intent mRemoteCtrIntent = new Intent();
-//		mRemoteCtrIntent.setClass(RelayControl.this,RemoteControlCommandActivity.class);
-//		startActivity(mRemoteCtrIntent);
-		// test code end
-
 	}
 
 	private void findMyView() {
-//		car_left=(Button)findViewById(car_left);
-//		car_right=(Button)findViewById(R.id.car_right);
-//		car_back=(Button)findViewById(R.id.car_back);
 		releaseCtrl=(Button)findViewById(R.id.button1);
 		btBack=(Button) findViewById(R.id.button2);
-		distance_display=(Button)findViewById(R.id.distance_display);
 		_txtRead = (EditText) findViewById(R.id.etShow);
 	}
 
 	private void setMyViewListener() {
-//		car_left.setOnClickListener(new ClickEvent());
-//		car_right.setOnClickListener(new ClickEvent());
-//		car_back.setOnClickListener(new ClickEvent());
 		releaseCtrl.setOnClickListener(new ClickEvent());
-		btBack.setOnClickListener(new ClickEvent());
 	}
 
 	@Override
@@ -119,18 +103,7 @@ public class RelayControl extends Activity{
 					//Toast.makeText(getApplicationContext(), "关闭连接失败", Toast.LENGTH_SHORT);
 					setTitle("关闭连接失败");
 				}
-			}
-//			else if (v == car_left) {
-//				car_left.setBackgroundColor(Color.WHITE);
-//				mVibrator.cancel();
-//			}else if (v == car_right) {
-//				car_right.setBackgroundColor(Color.WHITE);
-//				mVibrator.cancel();
-//			}else if (v == car_back) {
-//				car_back.setBackgroundColor(Color.WHITE);
-//				mVibrator.cancel();
-//			}
-			else if (v == btBack) {// 返回
+			}else if (v == btBack) {// 返回
 				RelayControl.this.finish();
 			}
 		}
@@ -214,9 +187,17 @@ public class RelayControl extends Activity{
 							if (len > 0) {
 								byte[] btBuf = new byte[len];
 								System.arraycopy(temp, 0, btBuf, 0, btBuf.length);
+								String sendToUI = readStr1;
 								//读编码
-								String readStr1 = new String(btBuf,encodeType);
-								mHandler.obtainMessage(01,len,-1,readStr1).sendToTarget();
+								readStr1 = new String(btBuf,encodeType);
+								sendToUI = sendToUI + readStr1;
+								Log.d("TIEJIANG", "sendToUI= " + sendToUI);
+								if ( readStr1.contains("W") && readStr1.contains("X")){
+									mHandler.obtainMessage(01,len,-1,sendToUI).sendToTarget();
+									sendToUI = "";
+								}else if(readStr1.trim().length() > 22) {
+									sendToUI = "";
+								}
 							}
 							Thread.sleep(wait);// 延时一定时间缓冲数据
 						}catch (Exception e) {
@@ -228,7 +209,6 @@ public class RelayControl extends Activity{
 			}
 		}
 	}
-
 	private class MyHandler extends Handler{
 		@Override
 		public void dispatchMessage(Message msg) {
@@ -243,12 +223,15 @@ public class RelayControl extends Activity{
 				case 01:
 					//_txtRead.setText("");
 					String info=(String) msg.obj;
+					Log.d("TIEJIANG", "INFO= " + info);
 					_txtRead.append(info);
-
-					//send message to client through yun-tong-xun
-					testBlueTooth.handleSendTextMessage("init data");
-
-					AnalyzeData(info);
+//					AnalyzeData(info);
+					if (info.contains("W") || info.contains("X") || info.contains("E")){
+						//启动荣联云 VoIP video的方法：
+						testBlueTooth.handleSendTextMessage(info);
+						Log.d("TIEJIANG", "SEND TO CLIENT SUCCEED!");
+				//		CCPAppManager.callVoIPAction(RelayControl.this, ECVoIPCallManager.CallType.VIDEO, nickName, contactID,false);
+					}
 					break;
 
 				default:
@@ -283,7 +266,7 @@ public class RelayControl extends Activity{
 //				if (distance>0 && distance<20) {
 //					car_back.setBackgroundColor(Color.RED);
 //					mVibrator.vibrate(pattern,2);   //重复两次上面的pattern 如果只想震动一次，index设为-1
-//				}			
+//				}
 //			}
 		}
 	}
