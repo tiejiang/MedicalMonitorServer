@@ -191,11 +191,12 @@ public class RelayControl extends Activity{
 								//读编码
 								readStr1 = new String(btBuf,encodeType);
 								sendToUI = sendToUI + readStr1;
-								Log.d("TIEJIANG", "sendToUI= " + sendToUI);
-								if ( readStr1.contains("W") && readStr1.contains("X")){
+								Log.d("TIEJIANG", "sendToUI= " + sendToUI + " LENGTH= " + sendToUI.length());
+								if ( sendToUI.contains("W") && sendToUI.contains("X")){
 									mHandler.obtainMessage(01,len,-1,sendToUI).sendToTarget();
 									sendToUI = "";
-								}else if(readStr1.trim().length() > 22) {
+								}
+								if(sendToUI.trim().length() > 22) {
 									sendToUI = "";
 								}
 							}
@@ -226,7 +227,9 @@ public class RelayControl extends Activity{
 					Log.d("TIEJIANG", "INFO= " + info);
 					_txtRead.append(info);
 //					AnalyzeData(info);
-					if (info.contains("W") || info.contains("X") || info.contains("E")){
+					if (info.contains("W") && info.contains("X")
+//							|| info.contains("E")
+							){
 						//启动荣联云 VoIP video的方法：
 						testBlueTooth.handleSendTextMessage(info);
 						Log.d("TIEJIANG", "SEND TO CLIENT SUCCEED!");

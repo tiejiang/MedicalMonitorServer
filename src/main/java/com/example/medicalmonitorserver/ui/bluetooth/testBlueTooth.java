@@ -54,8 +54,6 @@ public class testBlueTooth extends Activity implements IMChattingHelper.OnMessag
 	public static BluetoothSocket btSocket;
 	public static AcceptThread serverThread;
 
-
-
 	private String mobile = "20170418";
 	String pass = "";
 	String appKey = "8aaf070858cd982e0158e21ff0000cee";
